@@ -1,0 +1,4 @@
+@model Producto
+@{ ViewData["Title"] = "Detalle de producto"; }
+<h1>@ViewData["Title"]</h1><partial name="_Detalle" model="Model" />
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a> <a asp-action="Index">Volver</a>

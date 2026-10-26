@@ -1,0 +1,6 @@
+@model Producto
+@{ ViewData["Title"] = "Desactivar producto"; }
+<h1>Desactivar producto</h1><p>El producto quedará inactivo y conservará su historial de pedidos. Podés reactivarlo desde Editar.</p>
+<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+<partial name="_Detalle" model="Model" />
+<form asp-action="Delete" method="post"><input asp-for="Id" type="hidden"/><button type="submit" class="btn btn-danger">Confirmar</button> <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a></form>

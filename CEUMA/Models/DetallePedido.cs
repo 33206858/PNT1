@@ -12,7 +12,7 @@ public class DetallePedido
     public Producto Producto { get; set; } = null!;
     [Range(1, int.MaxValue)]
     public int Cantidad { get; set; }
-    [Range(typeof(decimal), "0.01", "9999999999999999.99")]
+    [Range(typeof(decimal), "0.01", "9999999999999999.99", ParseLimitsInInvariantCulture = true, ConvertValueInInvariantCulture = true)]
     public decimal PrecioUnitario { get; set; }
     [NotMapped]
     public decimal Subtotal => Cantidad * PrecioUnitario;

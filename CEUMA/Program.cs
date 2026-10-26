@@ -18,6 +18,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// Los inputs HTML y jQuery Validate usan punto decimal.
+app.UseRequestLocalization("en-US");
 app.UseHttpsRedirection();
 app.UseRouting();
 

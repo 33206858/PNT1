@@ -1,27 +1,11 @@
-﻿@model IEnumerable<CEUMA.Models.Producto>
-
+@model IEnumerable<Producto>
+@{ ViewData["Title"] = "Productos"; }
 <h1>Productos</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Código</th>
-            <th>Nombre</th>
-            <th>Presentación</th>
-            <th>Precio</th>
-            <th>Stock</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var producto in Model)
-        {
-            <tr>
-                <td>@producto.Codigo</td>
-                <td>@producto.Nombre</td>
-                <td>@producto.Presentacion</td>
-                <td>@producto.Precio.ToString("C")</td>
-                <td>@producto.Stock</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<p>Administración del catálogo: incluye productos activos e inactivos.</p>
+<p><a asp-action="Create" class="btn btn-primary">Crear producto</a></p>
+<div class="table-responsive"><table class="table table-striped align-middle"><thead><tr><th>@Html.DisplayNameFor(m => m.Codigo)</th><th>@Html.DisplayNameFor(m => m.Nombre)</th><th>@Html.DisplayNameFor(m => m.Categoria.Nombre)</th><th>@Html.DisplayNameFor(m => m.Precio)</th><th>@Html.DisplayNameFor(m => m.Stock)</th><th>@Html.DisplayNameFor(m => m.Activo)</th><th>Acciones</th></tr></thead><tbody>
+@if (!Model.Any()) { <tr><td colspan="7">Todavía no hay registros.</td></tr> }
+@foreach (var item in Model) {
+<tr><td>@Html.DisplayFor(_ => item.Codigo)</td><td>@Html.DisplayFor(_ => item.Nombre)</td><td>@Html.DisplayFor(_ => item.Categoria.Nombre)</td><td>@Html.DisplayFor(_ => item.Precio)</td><td>@Html.DisplayFor(_ => item.Stock)</td><td>@Html.DisplayFor(_ => item.Activo)</td><td><a asp-action="Details" asp-route-id="@item.Id">Detalle</a> | <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> | <a asp-action="Delete" asp-route-id="@item.Id">Desactivar</a></td></tr>
+}
+</tbody></table></div>
