@@ -1,0 +1,11 @@
+@model IEnumerable<Categoria>
+@{ ViewData["Title"] = "Categorias"; }
+<h1>Categorias</h1>
+<p>Categorías disponibles para clasificar los productos.</p>
+<p><a asp-action="Create" class="btn btn-primary">Crear categoria</a></p>
+<div class="table-responsive"><table class="table table-striped align-middle"><thead><tr><th>@Html.DisplayNameFor(m => m.Nombre)</th><th>@Html.DisplayNameFor(m => m.Descripcion)</th><th>Acciones</th></tr></thead><tbody>
+@if (!Model.Any()) { <tr><td colspan="3">Todavía no hay registros.</td></tr> }
+@foreach (var item in Model) {
+<tr><td>@Html.DisplayFor(_ => item.Nombre)</td><td>@Html.DisplayFor(_ => item.Descripcion)</td><td><a asp-action="Details" asp-route-id="@item.Id">Detalle</a> | <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> | <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a></td></tr>
+}
+</tbody></table></div>

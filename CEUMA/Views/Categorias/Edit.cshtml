@@ -1,0 +1,8 @@
+@model Categoria
+@{ ViewData["Title"] = "Editar categoria"; }
+<h1>@ViewData["Title"]</h1>
+<div class="col-lg-6"><form asp-action="Edit" method="post">
+<partial name="_Formulario" model="Model" />
+<button type="submit" class="btn btn-primary">Guardar</button> <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+</form></div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

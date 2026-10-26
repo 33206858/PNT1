@@ -1,0 +1,6 @@
+@model Categoria
+@{ ViewData["Title"] = "Eliminar categoría"; }
+<h1>Eliminar categoría</h1><p>Solo se pueden eliminar categorías sin productos asociados.</p>
+<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+<partial name="_Detalle" model="Model" />
+<form asp-action="Delete" method="post"><input asp-for="Id" type="hidden"/><button type="submit" class="btn btn-danger">Confirmar</button> <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a></form>
