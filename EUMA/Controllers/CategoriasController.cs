@@ -1,8 +1,8 @@
-using CEUMA.Data;
-using CEUMA.Models;
+using EUMA.Data;
+using EUMA.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-namespace CEUMA.Controllers;
+namespace EUMA.Controllers;
 
 public class CategoriasController(AppDbContext context) : Controller
 {

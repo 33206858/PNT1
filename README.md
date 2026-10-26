@@ -15,16 +15,16 @@ Avance del 26/10/2026. El ejemplo Estudiante/Deporte de clase se adapta al domin
 
 ## Ejecutar
 
-Abrir CEUMA.slnx en Visual Studio con .NET 10 y SQL Server LocalDB. Verificar ConexionCEUMA en CEUMA/appsettings.json.
+Abrir EUMA.slnx en Visual Studio con .NET 10 y SQL Server LocalDB. Verificar ConexionEUMA en EUMA/appsettings.json.
 
-En la consola del Administrador de paquetes, seleccionar CEUMA y ejecutar `Update-Database` para aplicar la migración Inicial en una instalación nueva. Esta entrega no modifica el esquema ni necesita una migración adicional. El paquete EF Tools ya está referenciado; el comando CLI dotnet ef requiere instalar su herramienta por separado.
+En la consola del Administrador de paquetes, seleccionar EUMA y ejecutar `Update-Database` para aplicar la migración Inicial en una instalación nueva. Esta entrega no modifica el esquema ni necesita una migración adicional. El paquete EF Tools ya está referenciado; el comando CLI dotnet ef requiere instalar su herramienta por separado.
 
 Desde esta carpeta:
 
 ```powershell
-dotnet restore CEUMA.slnx
-dotnet build CEUMA.slnx --no-restore
-dotnet run --project CEUMA/CEUMA.csproj
+dotnet restore EUMA.slnx
+dotnet build EUMA.slnx --no-restore
+dotnet run --project EUMA/EUMA.csproj
 ```
 
 Abrir las rutas /Categorias y /Productos o usar el menú. Crear primero una categoría.
@@ -68,12 +68,16 @@ Repositorio: https://github.com/33206858/PNT1. La rama principal actual se llama
 1. El propietario invita al compañero desde Settings > Collaborators. Cada uno usa su propia cuenta e identidad Git.
 2. Cada uno clona el repositorio, restaura los paquetes y ejecuta Update-Database contra su propia LocalDB. Las migraciones comparten el esquema; los datos se comparten mediante un script de datos iniciales revisado, no copiando archivos MDF/LDF.
 3. Antes de una tarea, actualizar master con `git pull --ff-only` y crear una rama, por ejemplo `git switch -c feature/busqueda-productos`. El pull presupone un árbol limpio; si master diverge, revisar los commits y resolver la integración sin forzar.
-4. Hacer commits pequeños con archivos específicos, por ejemplo `git add CEUMA/Controllers/ProductosController.cs` y `git commit -m "feat: agregar búsqueda de productos"`.
+4. Hacer commits pequeños con archivos específicos, por ejemplo `git add EUMA/Controllers/ProductosController.cs` y `git commit -m "feat: agregar búsqueda de productos"`.
 5. Publicar la rama con `git push -u origin feature/busqueda-productos`, abrir un pull request hacia master y pedir revisión al compañero. Integrar después de compilar y probar.
 6. Ambos actualizan master al comenzar la siguiente tarea. Evitar trabajar simultáneamente en la misma funcionalidad y coordinar las migraciones: uno genera la migración, el otro actualiza su código y aplica Update-Database.
 
-Una base Azure compartida sincroniza datos, no archivos de código. Usarla para integración o demostración; las bases locales permiten probar sin interferir con el compañero. Solo una persona aplica migraciones a la base compartida una vez integrado el cambio. No guardar contraseñas en appsettings.json ni en Git: usar User Secrets o ConnectionStrings__ConexionCEUMA como variable de entorno. Tener una base en Azure no publica la web: alojar la aplicación es una decisión separada.
+Una base Azure compartida sincroniza datos, no archivos de código. Usarla para integración o demostración; las bases locales permiten probar sin interferir con el compañero. Solo una persona aplica migraciones a la base compartida una vez integrado el cambio. No guardar contraseñas en appsettings.json ni en Git: usar User Secrets o ConnectionStrings__ConexionEUMA como variable de entorno. Tener una base en Azure no publica la web: alojar la aplicación es una decisión separada.
 
 La oferta Azure SQL consultada el 26/10/2026 incluye por base 100000 vCore-segundos, 32 GB de datos y 32 GB de backups por mes durante la vigencia de la suscripción. Elegir explícitamente la oferta gratuita y la pausa al agotar el cupo; la modalidad que continúa funcionando puede facturar excedentes. La pausa por agotamiento impide acceder hasta el siguiente mes. Cerrar SSMS al terminar para permitir la pausa por inactividad. La compatibilidad depende de la suscripción; Students Starter no es compatible.
 
 Referencias: https://learn.microsoft.com/en-us/azure/azure-sql/database/free-tier y https://docs.github.com/en/repositories/creating-and-managing-repositories/access-to-repositories
+
+## Nombre del proyecto
+
+La solución y el proyecto se llaman EUMA: abrir EUMA.slnx. El código utiliza el namespace EUMA y la configuración ConexionEUMA. La conexión conserva Database=CEUMA para seguir usando la base local existente con sus datos; el nombre físico de la base es independiente del proyecto. No hace falta renombrar la base ni generar migraciones por este cambio.

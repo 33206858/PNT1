@@ -1,7 +1,7 @@
-using CEUMA.Models;
+using EUMA.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CEUMA.Data;
+namespace EUMA.Data;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {

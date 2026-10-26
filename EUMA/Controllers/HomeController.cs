@@ -1,8 +1,8 @@
-using CEUMA.Models;
+using EUMA.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace CEUMA.Controllers
+namespace EUMA.Controllers
 {
     public class HomeController : Controller
     {

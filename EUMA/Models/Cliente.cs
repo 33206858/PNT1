@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CEUMA.Models;
+namespace EUMA.Models;
 
 public class Cliente
 {

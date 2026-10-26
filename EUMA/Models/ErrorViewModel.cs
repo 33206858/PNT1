@@ -1,4 +1,4 @@
-namespace CEUMA.Models
+namespace EUMA.Models
 {
     public class ErrorViewModel
     {

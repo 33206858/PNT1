@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace CEUMA.Migrations
+namespace EUMA.Migrations
 {
     /// <inheritdoc />
     public partial class Inicial : Migration

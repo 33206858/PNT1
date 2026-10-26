@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
-namespace CEUMA.Models;
+namespace EUMA.Models;
 
 public enum Origen { Argentina = 0, [Display(Name = "Elaboración propia")] ElaboracionPropia = 1, Importado = 2 }
 
