@@ -1,14 +1,18 @@
 using EUMA.Models;
+using EUMA.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace EUMA.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController(AppDbContext context) : Controller
     {
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var productos = await context.Productos.AsNoTracking()
+                .Where(p => p.Activo).OrderBy(p => p.Nombre).ToListAsync();
+            return View(productos);
         }
 
         public IActionResult Privacy()
