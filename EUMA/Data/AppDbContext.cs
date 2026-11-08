@@ -38,7 +38,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         {
             t.HasCheckConstraint("CK_Productos_Precio", "[Precio] > 0");
             t.HasCheckConstraint("CK_Productos_Stock", "[Stock] >= 0");
-            t.HasCheckConstraint("CK_Productos_Origen", "[Origen] IN (0, 1, 2)");
         });
         modelBuilder.Entity<DetallePedido>().ToTable(t =>
         {
@@ -47,8 +46,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         });
         modelBuilder.Entity<Pedido>().ToTable(t =>
         {
-            t.HasCheckConstraint("CK_Pedidos_Estado", "[Estado] IN (0, 1, 2, 3)");
-            t.HasCheckConstraint("CK_Pedidos_Cliente", "[Estado] = 0 OR [ClienteId] IS NOT NULL");
+            t.HasCheckConstraint("CK_Pedidos_Estado", "[Estado] IN (0, 1, 2, 3, 4)");
+            t.HasCheckConstraint("CK_Pedidos_Entrega", "[Entrega] IN (0, 1)");
         });
     }
 }
