@@ -1,0 +1,54 @@
+@{
+    ViewData["Title"] = "Consultar mi pedido";
+    Pedido? pedido = ViewBag.Pedido;
+}
+<h1>Consultar mi pedido</h1>
+<p>Ingresá el número de pedido y el email que usaste al comprar.</p>
+<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+<form asp-action="Index" method="post" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <label for="numero" class="form-label">Número de pedido</label>
+        <input id="numero" name="numero" type="number" min="1" step="1" value="@ViewBag.Numero" class="form-control" />
+        @Html.ValidationMessage("numero", null, new { @class = "text-danger" })
+    </div>
+    <div class="col-md-5">
+        <label for="email" class="form-label">Email</label>
+        <input id="email" name="email" type="email" value="@ViewBag.Email" class="form-control" />
+        @Html.ValidationMessage("email", null, new { @class = "text-danger" })
+    </div>
+    <div class="col-md-3 align-self-end"><button type="submit" class="btn btn-primary">Consultar</button></div>
+</form>
+@if (pedido != null)
+{
+    <h2>Pedido número @pedido.Id</h2>
+    <dl class="row">
+        <dt class="col-sm-3">Fecha</dt><dd class="col-sm-9">@pedido.Fecha.ToString("dd/MM/yyyy HH:mm")</dd>
+        <dt class="col-sm-3">Estado</dt><dd class="col-sm-9">@Html.DisplayFor(m => pedido.Estado)</dd>
+        <dt class="col-sm-3">Forma de entrega</dt><dd class="col-sm-9">@Html.DisplayFor(m => pedido.Entrega)</dd>
+        @if (pedido.Entrega == FormaEntrega.EnvioADomicilio)
+        {
+            <dt class="col-sm-3">Dirección</dt><dd class="col-sm-9">@pedido.Direccion</dd>
+            <dt class="col-sm-3">Localidad</dt><dd class="col-sm-9">@pedido.Localidad</dd>
+            <dt class="col-sm-3">Código postal</dt><dd class="col-sm-9">@pedido.CodigoPostal</dd>
+        }
+    </dl>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead><tr><th>Producto</th><th>Cantidad</th><th>Precio unitario</th><th>Subtotal</th></tr></thead>
+            <tbody>
+                @foreach (var detalle in pedido.Detalles)
+                {
+                    <tr><td>@detalle.Producto.Nombre</td><td>@detalle.Cantidad</td><td>@detalle.PrecioUnitario.ToString("C")</td><td>@detalle.Subtotal().ToString("C")</td></tr>
+                }
+            </tbody>
+            <tfoot><tr><th colspan="3" class="text-end">Total</th><th>@pedido.Total().ToString("C")</th></tr></tfoot>
+        </table>
+    </div>
+    @if (pedido.Estado == EstadoPedido.PendienteDePago)
+    {
+        <form asp-controller="Compra" asp-action="Pagar" asp-route-id="@pedido.Id" method="post">
+            <button type="submit" class="btn btn-success">Pagar</button>
+        </form>
+        <p class="text-muted small">Pago simulado: no se cobra dinero real.</p>
+    }
+}
