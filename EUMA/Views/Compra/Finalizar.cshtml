@@ -1,0 +1,102 @@
+@model DatosCompra
+@{
+    ViewData["Title"] = "Finalizar compra";
+    Carrito carrito = ViewBag.Carrito;
+}
+
+<h1 class="mb-4">Finalizar compra</h1>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <form asp-action="Finalizar" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+            <h2 class="h5">Tus datos</h2>
+            <div class="row g-3 mb-3">
+                <div class="col-sm-6">
+                    <label asp-for="Nombre" class="form-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="Apellido" class="form-label"></label>
+                    <input asp-for="Apellido" class="form-control" />
+                    <span asp-validation-for="Apellido" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="Telefono" class="form-label"></label>
+                    <input asp-for="Telefono" class="form-control" />
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+            </div>
+
+            <h2 class="h5">Entrega</h2>
+            <div class="row g-3 mb-3">
+                <div class="col-12">
+                    <label asp-for="Entrega" class="form-label"></label>
+                    <select asp-for="Entrega" asp-items="Html.GetEnumSelectList<FormaEntrega>()" class="form-select"></select>
+                    <span asp-validation-for="Entrega" class="text-danger"></span>
+                </div>
+                <p class="text-muted small mb-0">Dirección, localidad y código postal: solo si elegís envío a domicilio.</p>
+                <div class="col-12">
+                    <label asp-for="Direccion" class="form-label"></label>
+                    <input asp-for="Direccion" class="form-control" />
+                    <span asp-validation-for="Direccion" class="text-danger"></span>
+                </div>
+                <div class="col-sm-8">
+                    <label asp-for="Localidad" class="form-label"></label>
+                    <input asp-for="Localidad" class="form-control" />
+                    <span asp-validation-for="Localidad" class="text-danger"></span>
+                </div>
+                <div class="col-sm-4">
+                    <label asp-for="CodigoPostal" class="form-label"></label>
+                    <input asp-for="CodigoPostal" class="form-control" />
+                    <span asp-validation-for="CodigoPostal" class="text-danger"></span>
+                </div>
+                <div class="col-12">
+                    <label asp-for="Observaciones" class="form-label"></label>
+                    <textarea asp-for="Observaciones" class="form-control" rows="2"></textarea>
+                    <span asp-validation-for="Observaciones" class="text-danger"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Confirmar compra</button>
+            <a asp-controller="Carrito" asp-action="Index" class="btn btn-link">Volver al carrito</a>
+        </form>
+    </div>
+
+    @* Resumen del carrito *@
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="h5">Tu pedido</h2>
+                <table class="table table-sm mb-0">
+                    <tbody>
+                        @foreach (var item in carrito.Items)
+                        {
+                            <tr>
+                                <td>@item.Nombre x @item.Cantidad</td>
+                                <td class="text-end">@item.Subtotal().ToString("C")</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Total</th>
+                            <th class="text-end">@carrito.Total().ToString("C")</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
