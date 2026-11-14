@@ -42,5 +42,21 @@
         {
             <p>@Model.Descripcion</p>
         }
+
+        @if (Model.Stock > 0)
+        {
+            <form asp-controller="Carrito" asp-action="Agregar" method="post" class="d-flex flex-wrap gap-2 align-items-end">
+                <input type="hidden" name="productoId" value="@Model.Id" />
+                <div>
+                    <label for="cantidad" class="form-label">Cantidad</label>
+                    <input type="number" id="cantidad" name="cantidad" value="1" min="1" max="@Model.Stock" class="form-control" style="max-width: 120px" />
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+            </form>
+        }
+        else
+        {
+            <button type="button" class="btn btn-secondary" disabled>Sin stock</button>
+        }
     </div>
 </div>
