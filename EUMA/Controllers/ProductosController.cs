@@ -15,9 +15,21 @@ public class ProductosController : Controller
         _context = context;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(int? categoriaId, string? buscar)
     {
-        return View(await _context.Productos.Include(x => x.Categoria).OrderBy(x => x.Nombre).ToListAsync());
+        var productos = _context.Productos.Include(p => p.Categoria).AsQueryable();
+        if (categoriaId != null)
+        {
+            productos = productos.Where(p => p.CategoriaId == categoriaId);
+        }
+        buscar = (buscar ?? "").Trim();
+        if (buscar != "")
+        {
+            productos = productos.Where(p => p.Nombre.Contains(buscar) || p.Codigo.Contains(buscar));
+        }
+        ViewBag.CategoriaId = new SelectList(await _context.Categorias.OrderBy(c => c.Nombre).ToListAsync(), "Id", "Nombre", categoriaId);
+        ViewBag.Buscar = buscar;
+        return View(await productos.OrderBy(p => p.Nombre).ToListAsync());
     }
 
     public async Task<IActionResult> Details(int? id)

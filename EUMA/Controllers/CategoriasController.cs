@@ -16,7 +16,7 @@ public class CategoriasController : Controller
 
     public async Task<IActionResult> Index()
     {
-        return View(await _context.Categorias.OrderBy(x => x.Nombre).ToListAsync());
+        return View(await _context.Categorias.Include(c => c.Productos).OrderBy(x => x.Nombre).ToListAsync());
     }
 
     public async Task<IActionResult> Details(int? id)
@@ -87,7 +87,7 @@ public class CategoriasController : Controller
 
     public async Task<IActionResult> Delete(int? id)
     {
-        var item = await _context.Categorias.FirstOrDefaultAsync(x => x.Id == id);
+        var item = await _context.Categorias.Include(c => c.Productos).FirstOrDefaultAsync(x => x.Id == id);
         if (item == null)
         {
             return NotFound();
@@ -98,7 +98,7 @@ public class CategoriasController : Controller
     [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var item = await _context.Categorias.FirstOrDefaultAsync(x => x.Id == id);
+        var item = await _context.Categorias.Include(c => c.Productos).FirstOrDefaultAsync(x => x.Id == id);
         if (item == null)
         {
             return NotFound();

@@ -1,0 +1,24 @@
+@model Cliente
+@{ ViewData["Title"] = "Detalle del cliente"; }
+<h1>@Model.NombreCompleto()</h1>
+<dl class="row">
+    <dt class="col-sm-3">Email</dt><dd class="col-sm-9">@Model.Email</dd>
+    <dt class="col-sm-3">Teléfono</dt><dd class="col-sm-9">@Model.Telefono</dd>
+</dl>
+<h2>Pedidos</h2>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead><tr><th>Número</th><th>Fecha</th><th>Estado</th><th>Total</th></tr></thead>
+        <tbody>
+            @if (Model.Pedidos.Count == 0)
+            {
+                <tr><td colspan="4">Este cliente no tiene pedidos.</td></tr>
+            }
+            @foreach (var pedido in Model.Pedidos.OrderByDescending(p => p.Fecha).ThenByDescending(p => p.Id))
+            {
+                <tr><td>@pedido.Id</td><td>@pedido.Fecha.ToString("dd/MM/yyyy HH:mm")</td><td>@Html.DisplayFor(m => pedido.Estado)</td><td>@pedido.Total().ToString("C")</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+<a asp-action="Index" class="btn btn-outline-secondary">Volver a clientes</a>

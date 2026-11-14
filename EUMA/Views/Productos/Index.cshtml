@@ -2,10 +2,34 @@
 @{ ViewData["Title"] = "Productos"; }
 <h1>Productos</h1>
 <p>Administración del catálogo: incluye productos activos e inactivos.</p>
+<form asp-action="Index" method="get" class="row g-3 mb-3">
+    <div class="col-md-4">
+        <label for="categoriaId" class="form-label">Categoría</label>
+        <select id="categoriaId" name="categoriaId" asp-items="ViewBag.CategoriaId" class="form-select"><option value="">Todas</option></select>
+    </div>
+    <div class="col-md-5">
+        <label for="buscar" class="form-label">Buscar por nombre o código</label>
+        <input id="buscar" name="buscar" value="@ViewBag.Buscar" maxlength="50" class="form-control" />
+    </div>
+    <div class="col-md-3 align-self-end"><button type="submit" class="btn btn-primary">Filtrar</button></div>
+</form>
 <p><a asp-action="Create" class="btn btn-primary">Crear producto</a></p>
-<div class="table-responsive"><table class="table table-striped align-middle"><thead><tr><th>@Html.DisplayNameFor(m => m.Codigo)</th><th>@Html.DisplayNameFor(m => m.Nombre)</th><th>@Html.DisplayNameFor(m => m.Categoria.Nombre)</th><th>@Html.DisplayNameFor(m => m.Precio)</th><th>@Html.DisplayNameFor(m => m.Stock)</th><th>@Html.DisplayNameFor(m => m.Activo)</th><th>Acciones</th></tr></thead><tbody>
-@if (!Model.Any()) { <tr><td colspan="7">Todavía no hay registros.</td></tr> }
-@foreach (var item in Model) {
-<tr><td>@Html.DisplayFor(_ => item.Codigo)</td><td>@Html.DisplayFor(_ => item.Nombre)</td><td>@Html.DisplayFor(_ => item.Categoria.Nombre)</td><td>@Html.DisplayFor(_ => item.Precio)</td><td>@Html.DisplayFor(_ => item.Stock)</td><td>@Html.DisplayFor(_ => item.Activo)</td><td><a asp-action="Details" asp-route-id="@item.Id">Detalle</a> | <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> | <a asp-action="Delete" asp-route-id="@item.Id">Desactivar</a></td></tr>
-}
-</tbody></table></div>
+<div class="table-responsive">
+    <table class="table table-striped align-middle">
+        <thead><tr><th>Código</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Stock</th><th>Activo</th><th>Acciones</th></tr></thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="7">No se encontraron productos.</td></tr>
+            }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Codigo</td><td>@item.Nombre</td><td>@item.Categoria.Nombre</td>
+                    <td>@item.Precio.ToString("C")</td><td>@item.Stock</td><td>@Html.DisplayFor(m => item.Activo)</td>
+                    <td><a asp-action="Details" asp-route-id="@item.Id">Detalle</a> | <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> | <a asp-action="Delete" asp-route-id="@item.Id">Desactivar</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
