@@ -3,13 +3,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EUMA.Data;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+// El contexto es el puente entre las clases del modelo y la base de datos.
+public class AppDbContext : DbContext
 {
-    public DbSet<Categoria> Categorias => Set<Categoria>();
-    public DbSet<Producto> Productos => Set<Producto>();
-    public DbSet<Cliente> Clientes => Set<Cliente>();
-    public DbSet<Pedido> Pedidos => Set<Pedido>();
-    public DbSet<DetallePedido> DetallesPedido => Set<DetallePedido>();
+    // Las opciones (SQL Server y la cadena de conexión) se configuran en Program.cs.
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    {
+    }
+
+    // Un DbSet por tabla. EF los completa solo; "= null!" evita la advertencia del compilador.
+    // Carrito e ItemCarrito no están acá porque no van a la base (viven en la sesión).
+    public DbSet<Categoria> Categorias { get; set; } = null!;
+    public DbSet<Producto> Productos { get; set; } = null!;
+    public DbSet<Cliente> Clientes { get; set; } = null!;
+    public DbSet<Pedido> Pedidos { get; set; } = null!;
+    public DbSet<DetallePedido> DetallesPedido { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

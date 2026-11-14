@@ -1,5 +1,9 @@
+@* Vista parcial: datos de una categoría. La usan Details y Delete. *@
 @model Categoria
+
 <dl class="row">
-<dt class="col-sm-3">@Html.DisplayNameFor(m => m.Nombre)</dt><dd class="col-sm-9">@Html.DisplayFor(m => m.Nombre)</dd>
-<dt class="col-sm-3">@Html.DisplayNameFor(m => m.Descripcion)</dt><dd class="col-sm-9">@Html.DisplayFor(m => m.Descripcion)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Nombre)</dt>
+    <dd class="col-sm-9">@Model.Nombre</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Descripcion)</dt>
+    <dd class="col-sm-9">@Model.Descripcion</dd>
 </dl>

@@ -1,12 +1,32 @@
+@* Vista parcial: datos de un producto. La usan Details y Delete. *@
 @model Producto
+
 <dl class="row">
-<dt class="col-sm-3">@Html.DisplayNameFor(m => m.Codigo)</dt><dd class="col-sm-9">@Html.DisplayFor(m => m.Codigo)</dd>
-<dt class="col-sm-3">@Html.DisplayNameFor(m => m.Nombre)</dt><dd class="col-sm-9">@Html.DisplayFor(m => m.Nombre)</dd>
-<dt class="col-sm-3">@Html.DisplayNameFor(m => m.Descripcion)</dt><dd class="col-sm-9">@Html.DisplayFor(m => m.Descripcion)</dd>
-<dt class="col-sm-3">@Html.DisplayNameFor(m => m.Categoria.Nombre)</dt><dd class="col-sm-9">@Html.DisplayFor(m => m.Categoria.Nombre)</dd>
-<dt class="col-sm-3">@Html.DisplayNameFor(m => m.Presentacion)</dt><dd class="col-sm-9">@Html.DisplayFor(m => m.Presentacion)</dd>
-<dt class="col-sm-3">@Html.DisplayNameFor(m => m.Precio)</dt><dd class="col-sm-9">@Html.DisplayFor(m => m.Precio)</dd>
-<dt class="col-sm-3">@Html.DisplayNameFor(m => m.Stock)</dt><dd class="col-sm-9">@Html.DisplayFor(m => m.Stock)</dd>
-<dt class="col-sm-3">@Html.DisplayNameFor(m => m.Imagen)</dt><dd class="col-sm-9">@Html.DisplayFor(m => m.Imagen)</dd>
-<dt class="col-sm-3">@Html.DisplayNameFor(m => m.Activo)</dt><dd class="col-sm-9">@Html.DisplayFor(m => m.Activo)</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Codigo)</dt>
+    <dd class="col-sm-9">@Model.Codigo</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Nombre)</dt>
+    <dd class="col-sm-9">@Model.Nombre</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Descripcion)</dt>
+    <dd class="col-sm-9">@Model.Descripcion</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.CategoriaId)</dt>
+    <dd class="col-sm-9">@Model.Categoria.Nombre</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Presentacion)</dt>
+    <dd class="col-sm-9">@Model.Presentacion</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Precio)</dt>
+    <dd class="col-sm-9">@Model.Precio.ToString("C")</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Stock)</dt>
+    <dd class="col-sm-9">@Model.Stock</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Imagen)</dt>
+    <dd class="col-sm-9">@Model.Imagen</dd>
+    <dt class="col-sm-3">@Html.DisplayNameFor(m => m.Activo)</dt>
+    <dd class="col-sm-9">
+        @if (Model.Activo)
+        {
+            <span>Sí</span>
+        }
+        else
+        {
+            <span>No</span>
+        }
+    </dd>
 </dl>

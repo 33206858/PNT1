@@ -1,4 +1,2 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
+﻿// JavaScript propio del sitio. Por ahora no hace falta:
+// la validación de los formularios la hace jQuery Validation (incluido en la plantilla).

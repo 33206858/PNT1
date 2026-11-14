@@ -136,7 +136,6 @@ public class CategoriasController : Controller
         catch (DbUpdateException)
         {
             ModelState.AddModelError("", "No se pudo guardar. Revisá los datos únicos y las relaciones y volvé a intentar.");
-            TempData["Error"] = "No se pudieron guardar los cambios.";
         }
         return false;
     }

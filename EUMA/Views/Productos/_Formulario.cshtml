@@ -1,15 +1,70 @@
+@* Vista parcial: campos del formulario de producto. La usan Create y Edit. *@
 @model Producto
+
 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-<input asp-for="Id" type="hidden"/>
-<div class="mb-3"><label asp-for="Codigo" class="form-label me-2"></label><input asp-for="Codigo" class="form-control" /><span asp-validation-for="Codigo" class="text-danger d-block"></span></div>
-<div class="mb-3"><label asp-for="Nombre" class="form-label me-2"></label><input asp-for="Nombre" class="form-control" /><span asp-validation-for="Nombre" class="text-danger d-block"></span></div>
-<div class="mb-3"><label asp-for="Descripcion" class="form-label me-2"></label><textarea asp-for="Descripcion" class="form-control"></textarea><span asp-validation-for="Descripcion" class="text-danger d-block"></span></div>
-<div class="mb-3"><label asp-for="CategoriaId" class="form-label me-2"></label><select asp-for="CategoriaId" asp-items="ViewBag.CategoriaId" class="form-select"><option value="">Seleccionar categoría</option></select><small>Primero debe existir una categoría. <a asp-controller="Categorias" asp-action="Create">Crear categoría</a></small><span asp-validation-for="CategoriaId" class="text-danger d-block"></span></div>
-<div class="mb-3"><label asp-for="Presentacion" class="form-label me-2"></label><input asp-for="Presentacion" class="form-control" /><span asp-validation-for="Presentacion" class="text-danger d-block"></span></div>
-<div class="mb-3"><label asp-for="Precio" class="form-label me-2"></label><input asp-for="Precio" class="form-control" step="0.01" /><small class="form-text d-block">Usá punto para los decimales. Ejemplo: 12.50</small><span asp-validation-for="Precio" class="text-danger d-block"></span></div>
-<div class="mb-3"><label asp-for="Stock" class="form-label me-2"></label><input asp-for="Stock" class="form-control" /><span asp-validation-for="Stock" class="text-danger d-block"></span></div>
-<div class="mb-3"><label asp-for="Imagen" class="form-label me-2"></label><input asp-for="Imagen" class="form-control" /><small class="form-text d-block">Nombre del archivo guardado en wwwroot/img. Ejemplo: lavanda.jpg</small><span asp-validation-for="Imagen" class="text-danger d-block"></span></div>
+<input asp-for="Id" type="hidden" />
+
+<div class="mb-3">
+    <label asp-for="Codigo" class="form-label"></label>
+    <input asp-for="Codigo" class="form-control" />
+    <span asp-validation-for="Codigo" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Nombre" class="form-label"></label>
+    <input asp-for="Nombre" class="form-control" />
+    <span asp-validation-for="Nombre" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Descripcion" class="form-label"></label>
+    <textarea asp-for="Descripcion" class="form-control"></textarea>
+    <span asp-validation-for="Descripcion" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="CategoriaId" class="form-label"></label>
+    @* La lista de categorías la arma el controlador (ViewBag.CategoriaId) *@
+    <select asp-for="CategoriaId" asp-items="ViewBag.CategoriaId" class="form-select">
+        <option value="">Seleccionar categoría</option>
+    </select>
+    <small class="form-text d-block">
+        Primero tiene que existir una categoría. <a asp-controller="Categorias" asp-action="Create">Crear categoría</a>
+    </small>
+    <span asp-validation-for="CategoriaId" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Presentacion" class="form-label"></label>
+    <input asp-for="Presentacion" class="form-control" />
+    <span asp-validation-for="Presentacion" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Precio" class="form-label"></label>
+    <input asp-for="Precio" class="form-control" step="0.01" />
+    <small class="form-text d-block">Usá punto para los decimales. Ejemplo: 12.50</small>
+    <span asp-validation-for="Precio" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Stock" class="form-label"></label>
+    <input asp-for="Stock" class="form-control" />
+    <span asp-validation-for="Stock" class="text-danger"></span>
+</div>
+
+<div class="mb-3">
+    <label asp-for="Imagen" class="form-label"></label>
+    <input asp-for="Imagen" class="form-control" />
+    <small class="form-text d-block">Nombre del archivo guardado en wwwroot/img. Ejemplo: lavanda.jpg</small>
+    <span asp-validation-for="Imagen" class="text-danger"></span>
+</div>
+
+@* Al crear, el producto queda siempre activo. Al editar se puede desactivar o reactivar. *@
 @if (Model.Id != 0)
 {
-<div class="mb-3"><label asp-for="Activo" class="form-label me-2"></label><input asp-for="Activo" class="form-check-input" /><span asp-validation-for="Activo" class="text-danger d-block"></span></div>
+    <div class="mb-3 form-check">
+        <input asp-for="Activo" class="form-check-input" />
+        <label asp-for="Activo" class="form-check-label"></label>
+    </div>
 }

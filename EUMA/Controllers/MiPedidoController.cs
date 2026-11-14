@@ -20,17 +20,23 @@ public class MiPedidoController : Controller
     }
 
     [HttpPost, ValidateAntiForgeryToken]
-    public async Task<IActionResult> Index(int? numero, string? email)
+    public async Task<IActionResult> Index(string? numero, string? email)
     {
         ViewBag.Numero = numero;
         ViewBag.Email = email;
-        // Reemplaza el error de conversión por un mensaje en castellano.
-        if (ModelState.ContainsKey("numero") && ModelState["numero"]!.Errors.Count > 0)
+
+        // El número llega como texto y lo convertimos con int.TryParse,
+        // así el mensaje de error queda en castellano.
+        int numeroPedido = 0;
+        if (string.IsNullOrWhiteSpace(numero))
         {
-            ModelState.Remove("numero");
+            ModelState.AddModelError("numero", "Ingresá un número de pedido mayor que cero.");
+        }
+        else if (!int.TryParse(numero.Trim(), out numeroPedido))
+        {
             ModelState.AddModelError("numero", "Ingresá un número de pedido entero válido.");
         }
-        else if (numero == null || numero <= 0)
+        else if (numeroPedido <= 0)
         {
             ModelState.AddModelError("numero", "Ingresá un número de pedido mayor que cero.");
         }
@@ -42,12 +48,18 @@ public class MiPedidoController : Controller
         {
             return View();
         }
-        string emailNormalizado = email!.Trim().ToLower();
+
+        // El email se compara sin espacios y en minúsculas, igual que se guardó al comprar.
+        string emailNormalizado = "";
+        if (email != null)
+        {
+            emailNormalizado = email.Trim().ToLower();
+        }
         var pedido = await _context.Pedidos
             .Include(p => p.Cliente)
             .Include(p => p.Detalles)
             .ThenInclude(d => d.Producto)
-            .FirstOrDefaultAsync(p => p.Id == numero && p.Cliente.Email == emailNormalizado);
+            .FirstOrDefaultAsync(p => p.Id == numeroPedido && p.Cliente.Email == emailNormalizado);
         if (pedido == null)
         {
             ModelState.AddModelError("", "No se encontró el pedido. Revisá el número y el email.");
