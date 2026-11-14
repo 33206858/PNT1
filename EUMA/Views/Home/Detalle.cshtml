@@ -1,0 +1,46 @@
+@model Producto
+@{
+    ViewData["Title"] = Model.Nombre;
+}
+
+<p><a asp-action="Index">&larr; Volver al catálogo</a></p>
+
+<div class="row g-4">
+    <div class="col-md-5">
+        @if (string.IsNullOrWhiteSpace(Model.Imagen))
+        {
+            <div class="bg-light d-flex align-items-center justify-content-center text-muted rounded" style="height: 320px">Sin imagen</div>
+        }
+        else
+        {
+            <img src="~/img/@Model.Imagen" class="img-fluid rounded" alt="@Model.Nombre" />
+        }
+    </div>
+
+    <div class="col-md-7">
+        <h1 class="h2">@Model.Nombre</h1>
+        <p class="text-muted">Código: @Model.Codigo · Categoría: @Model.Categoria.Nombre</p>
+        <p class="fs-3 fw-semibold">@Model.Precio.ToString("C")</p>
+
+        <dl class="row">
+            <dt class="col-sm-4">Presentación</dt>
+            <dd class="col-sm-8">@Model.Presentacion</dd>
+            <dt class="col-sm-4">Stock disponible</dt>
+            <dd class="col-sm-8">
+                @if (Model.Stock == 0)
+                {
+                    <span class="badge bg-secondary">Sin stock</span>
+                }
+                else
+                {
+                    @Model.Stock
+                }
+            </dd>
+        </dl>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Descripcion))
+        {
+            <p>@Model.Descripcion</p>
+        }
+    </div>
+</div>
